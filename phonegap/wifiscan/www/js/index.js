@@ -47,8 +47,8 @@ var app = {
         alert("Failed"+e);
         }
         
-        WifiWizard.getCurrentSSID(ssidHandler, fail);
-  
+      
+         WifiWizard.startScan(ssidHandler, fail);
   
   
         

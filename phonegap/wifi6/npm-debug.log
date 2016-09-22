@@ -1,0 +1,255 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   '-g',
+1 verbose cli   'ionic' ]
+2 info using npm@2.15.9
+3 info using node@v4.5.0
+4 verbose install initial load of /usr/local/lib/package.json
+5 verbose readDependencies loading dependencies from /usr/local/lib/package.json
+6 silly cache add args [ 'ionic', null ]
+7 verbose cache add spec ionic
+8 silly cache add parsed spec Result {
+8 silly cache add   raw: 'ionic',
+8 silly cache add   scope: null,
+8 silly cache add   name: 'ionic',
+8 silly cache add   rawSpec: '',
+8 silly cache add   spec: 'latest',
+8 silly cache add   type: 'tag' }
+9 silly addNamed ionic@latest
+10 verbose addNamed "latest" is being treated as a dist-tag for ionic
+11 info addNameTag [ 'ionic', 'latest' ]
+12 silly mapToRegistry name ionic
+13 silly mapToRegistry using default registry
+14 silly mapToRegistry registry https://registry.npmjs.org/
+15 silly mapToRegistry data Result {
+15 silly mapToRegistry   raw: 'ionic',
+15 silly mapToRegistry   scope: null,
+15 silly mapToRegistry   name: 'ionic',
+15 silly mapToRegistry   rawSpec: '',
+15 silly mapToRegistry   spec: 'latest',
+15 silly mapToRegistry   type: 'tag' }
+16 silly mapToRegistry uri https://registry.npmjs.org/ionic
+17 verbose addNameTag registry:https://registry.npmjs.org/ionic not in flight; fetching
+18 verbose request uri https://registry.npmjs.org/ionic
+19 verbose request no auth needed
+20 info attempt registry request try #1 at 1:50:21 AM
+21 verbose request id e4e19026a876ebca
+22 http request GET https://registry.npmjs.org/ionic
+23 http 200 https://registry.npmjs.org/ionic
+24 verbose headers { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+24 verbose headers   etag: '"7W1J88SHXZMLK0NGZ810YXZWR"',
+24 verbose headers   'content-type': 'application/json',
+24 verbose headers   'content-encoding': 'gzip',
+24 verbose headers   'cache-control': 'max-age=300',
+24 verbose headers   'content-length': '66606',
+24 verbose headers   'accept-ranges': 'bytes',
+24 verbose headers   date: 'Thu, 22 Sep 2016 17:50:20 GMT',
+24 verbose headers   via: '1.1 varnish',
+24 verbose headers   age: '193',
+24 verbose headers   connection: 'keep-alive',
+24 verbose headers   'x-served-by': 'cache-sin6924-SIN',
+24 verbose headers   'x-cache': 'HIT',
+24 verbose headers   'x-cache-hits': '2',
+24 verbose headers   'x-timer': 'S1474566620.968784,VS0,VE0',
+24 verbose headers   vary: 'Accept-Encoding' }
+25 silly get cb [ 200,
+25 silly get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+25 silly get     etag: '"7W1J88SHXZMLK0NGZ810YXZWR"',
+25 silly get     'content-type': 'application/json',
+25 silly get     'content-encoding': 'gzip',
+25 silly get     'cache-control': 'max-age=300',
+25 silly get     'content-length': '66606',
+25 silly get     'accept-ranges': 'bytes',
+25 silly get     date: 'Thu, 22 Sep 2016 17:50:20 GMT',
+25 silly get     via: '1.1 varnish',
+25 silly get     age: '193',
+25 silly get     connection: 'keep-alive',
+25 silly get     'x-served-by': 'cache-sin6924-SIN',
+25 silly get     'x-cache': 'HIT',
+25 silly get     'x-cache-hits': '2',
+25 silly get     'x-timer': 'S1474566620.968784,VS0,VE0',
+25 silly get     vary: 'Accept-Encoding' } ]
+26 verbose get saving ionic to /Users/muzhafarahzan/.npm/registry.npmjs.org/ionic/.cache.json
+27 verbose correctMkdir /Users/muzhafarahzan/.npm correctMkdir not in flight; initializing
+28 silly addNameTag next cb for ionic with tag latest
+29 silly addNamed ionic@2.0.0
+30 verbose addNamed "2.0.0" is a plain semver version for ionic
+31 silly mapToRegistry name ionic
+32 silly mapToRegistry using default registry
+33 silly mapToRegistry registry https://registry.npmjs.org/
+34 silly mapToRegistry data Result {
+34 silly mapToRegistry   raw: 'ionic',
+34 silly mapToRegistry   scope: null,
+34 silly mapToRegistry   name: 'ionic',
+34 silly mapToRegistry   rawSpec: '',
+34 silly mapToRegistry   spec: 'latest',
+34 silly mapToRegistry   type: 'tag' }
+35 silly mapToRegistry uri https://registry.npmjs.org/ionic
+36 verbose addRemoteTarball https://registry.npmjs.org/ionic/-/ionic-2.0.0.tgz not in flight; adding
+37 verbose addRemoteTarball [ 'https://registry.npmjs.org/ionic/-/ionic-2.0.0.tgz',
+37 verbose addRemoteTarball   '8135804e1f2470292100dedadc571e99023e4f7c' ]
+38 info retry fetch attempt 1 at 1:50:21 AM
+39 info attempt registry request try #1 at 1:50:21 AM
+40 http fetch GET https://registry.npmjs.org/ionic/-/ionic-2.0.0.tgz
+41 http fetch 200 https://registry.npmjs.org/ionic/-/ionic-2.0.0.tgz
+42 silly fetchAndShaCheck shasum 8135804e1f2470292100dedadc571e99023e4f7c
+43 verbose addTmpTarball /var/folders/6s/x9tn70f11m976rlzdf1s9jmr0000gn/T/npm-3038-bbb9f784/registry.npmjs.org/ionic/-/ionic-2.0.0.tgz not in flight; adding
+44 verbose addTmpTarball already have metadata; skipping unpack for ionic@2.0.0
+45 verbose correctMkdir /Users/muzhafarahzan/.npm correctMkdir not in flight; initializing
+46 silly cache afterAdd ionic@2.0.0
+47 verbose afterAdd /Users/muzhafarahzan/.npm/ionic/2.0.0/package/package.json not in flight; writing
+48 verbose correctMkdir /Users/muzhafarahzan/.npm correctMkdir not in flight; initializing
+49 verbose afterAdd /Users/muzhafarahzan/.npm/ionic/2.0.0/package/package.json written
+50 silly install resolved [ { name: 'ionic',
+50 silly install resolved     version: '2.0.0',
+50 silly install resolved     preferGlobal: true,
+50 silly install resolved     description: 'A tool for creating and developing Ionic Framework mobile apps.',
+50 silly install resolved     homepage: 'http://ionicframework.com/',
+50 silly install resolved     bin: { ionic: 'bin/ionic' },
+50 silly install resolved     scripts:
+50 silly install resolved      { changelog: 'conventional-changelog -i CHANGELOG.md -s -p angular',
+50 silly install resolved        'gh-release': 'node scripts/release',
+50 silly install resolved        coveralls: 'istanbul cover node_modules/jasmine-node/bin/jasmine-node --captureExceptions spec/ && cat coverage/lcov.info | node_modules/coveralls/bin/coveralls.js && rm -rf coverage',
+50 silly install resolved        e2e: 'jasmine-node --captureExceptions ./e2e',
+50 silly install resolved        jasmine: 'jasmine-node --captureExceptions  ./spec',
+50 silly install resolved        lint: 'eslint .',
+50 silly install resolved        test: 'istanbul cover node_modules/jasmine-node/bin/jasmine-node --captureExceptions spec/' },
+50 silly install resolved     keywords:
+50 silly install resolved      [ 'ionic',
+50 silly install resolved        'ionic framework',
+50 silly install resolved        'ionicframework',
+50 silly install resolved        'mobile',
+50 silly install resolved        'app',
+50 silly install resolved        'hybrid',
+50 silly install resolved        'cordova',
+50 silly install resolved        'native',
+50 silly install resolved        'phonegap' ],
+50 silly install resolved     repository:
+50 silly install resolved      { type: 'git',
+50 silly install resolved        url: 'git+https://github.com/driftyco/ionic-cli.git' },
+50 silly install resolved     contributors: [ [Object], [Object], [Object], [Object], [Object], [Object] ],
+50 silly install resolved     license: 'MIT',
+50 silly install resolved     dependencies:
+50 silly install resolved      { 'cli-table': '0.3.1',
+50 silly install resolved        colors: '0.6.2',
+50 silly install resolved        'expand-tilde': '1.2.0',
+50 silly install resolved        'form-data': '0.1.4',
+50 silly install resolved        gulp: '3.8.8',
+50 silly install resolved        'gulp-util': '3.0.7',
+50 silly install resolved        inquirer: '0.11.2',
+50 silly install resolved        'ionic-app-lib': '2.0.0',
+50 silly install resolved        moment: '2.11.1',
+50 silly install resolved        open: '0.0.5',
+50 silly install resolved        optimist: '0.6.0',
+50 silly install resolved        'pretty-hrtime': '1.0.2',
+50 silly install resolved        progress: '1.1.7',
+50 silly install resolved        prompt: '0.2.12',
+50 silly install resolved        q: '1.0.1',
+50 silly install resolved        request: '2.51.0',
+50 silly install resolved        semver: '4.3.6',
+50 silly install resolved        'serve-static': '1.7.1',
+50 silly install resolved        shelljs: '0.2.6',
+50 silly install resolved        underscore: '1.7.0',
+50 silly install resolved        unzip: '0.1.9' },
+50 silly install resolved     devDependencies:
+50 silly install resolved      { 'conventional-changelog-cli': '1.1.1',
+50 silly install resolved        coveralls: '^2.2.0',
+50 silly install resolved        eslint: '^3.0.1',
+50 silly install resolved        github: '0.2.4',
+50 silly install resolved        istanbul: '^0.4.4',
+50 silly install resolved        'jasmine-node': '1.14.5',
+50 silly install resolved        'mock-require': '1.3.0',
+50 silly install resolved        rewire: '2.5.1' },
+50 silly install resolved     gitHead: '9185bb5828b2ecd85edd4dbce9ab165a6288641e',
+50 silly install resolved     bugs: { url: 'https://github.com/driftyco/ionic-cli/issues' },
+50 silly install resolved     bundleDependencies:
+50 silly install resolved      [ 'cli-table',
+50 silly install resolved        'colors',
+50 silly install resolved        'expand-tilde',
+50 silly install resolved        'form-data',
+50 silly install resolved        'gulp',
+50 silly install resolved        'gulp-util',
+50 silly install resolved        'inquirer',
+50 silly install resolved        'ionic-app-lib',
+50 silly install resolved        'moment',
+50 silly install resolved        'open',
+50 silly install resolved        'optimist',
+50 silly install resolved        'pretty-hrtime',
+50 silly install resolved        'progress',
+50 silly install resolved        'prompt',
+50 silly install resolved        'q',
+50 silly install resolved        'request',
+50 silly install resolved        'semver',
+50 silly install resolved        'serve-static',
+50 silly install resolved        'shelljs',
+50 silly install resolved        'underscore',
+50 silly install resolved        'unzip' ],
+50 silly install resolved     _id: 'ionic@2.0.0',
+50 silly install resolved     _shasum: '8135804e1f2470292100dedadc571e99023e4f7c',
+50 silly install resolved     _from: 'ionic@latest',
+50 silly install resolved     _npmVersion: '2.15.0',
+50 silly install resolved     _nodeVersion: '4.4.2',
+50 silly install resolved     _npmUser: { name: 'jthoms1', email: 'jthoms1@gmail.com' },
+50 silly install resolved     dist:
+50 silly install resolved      { shasum: '8135804e1f2470292100dedadc571e99023e4f7c',
+50 silly install resolved        tarball: 'https://registry.npmjs.org/ionic/-/ionic-2.0.0.tgz' },
+50 silly install resolved     maintainers: [ [Object], [Object], [Object], [Object], [Object], [Object] ],
+50 silly install resolved     _npmOperationalInternal:
+50 silly install resolved      { host: 'packages-12-west.internal.npmjs.com',
+50 silly install resolved        tmp: 'tmp/ionic-2.0.0.tgz_1471268623406_0.1434044949710369' },
+50 silly install resolved     directories: {},
+50 silly install resolved     _resolved: 'https://registry.npmjs.org/ionic/-/ionic-2.0.0.tgz' } ]
+51 info install ionic@2.0.0 into /usr/local/lib
+52 info installOne ionic@2.0.0
+53 verbose installOne of ionic to /usr/local/lib not in flight; installing
+54 verbose correctMkdir /Users/muzhafarahzan/.npm/_locks correctMkdir not in flight; initializing
+55 verbose lock using /Users/muzhafarahzan/.npm/_locks/ionic-61c0cd50dc7a1457.lock for /usr/local/lib/node_modules/ionic
+56 silly install write writing ionic 2.0.0 to /usr/local/lib/node_modules/ionic
+57 verbose unbuild lib/node_modules/ionic
+58 silly gentlyRm /usr/local/lib/node_modules/ionic is being purged from base /usr/local
+59 verbose gentlyRm don't care about contents; nuking /usr/local/lib/node_modules/ionic
+60 verbose tar unpack /Users/muzhafarahzan/.npm/ionic/2.0.0/package.tgz
+61 verbose tar unpacking to /usr/local/lib/node_modules/ionic
+62 silly gentlyRm /usr/local/lib/node_modules/ionic is being purged
+63 verbose gentlyRm don't care about contents; nuking /usr/local/lib/node_modules/ionic
+64 silly gunzTarPerm modes [ '755', '644' ]
+65 error tar.unpack untar error /Users/muzhafarahzan/.npm/ionic/2.0.0/package.tgz
+66 verbose unlock done using /Users/muzhafarahzan/.npm/_locks/ionic-61c0cd50dc7a1457.lock for /usr/local/lib/node_modules/ionic
+67 verbose fstream_path /usr/local/lib/node_modules/ionic
+68 verbose fstream_type Directory
+69 verbose fstream_class DirWriter
+70 verbose stack Error: EACCES: permission denied, mkdir '/usr/local/lib/node_modules/ionic'
+70 verbose stack     at Error (native)
+71 verbose fstream_stack /usr/local/lib/node_modules/npm/node_modules/fstream/lib/dir-writer.js:35:25
+71 verbose fstream_stack /usr/local/lib/node_modules/npm/node_modules/mkdirp/index.js:47:53
+71 verbose fstream_stack FSReqWrap.oncomplete (fs.js:82:15)
+72 verbose cwd /Users/muzhafarahzan/Desktop/wiib/wiib/phonegap/wifi6
+73 error Darwin 13.4.0
+74 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "install" "-g" "ionic"
+75 error node v4.5.0
+76 error npm  v2.15.9
+77 error path /usr/local/lib/node_modules/ionic
+78 error code EACCES
+79 error errno -13
+80 error syscall mkdir
+81 error Error: EACCES: permission denied, mkdir '/usr/local/lib/node_modules/ionic'
+81 error     at Error (native)
+81 error  { [Error: EACCES: permission denied, mkdir '/usr/local/lib/node_modules/ionic']
+81 error   errno: -13,
+81 error   code: 'EACCES',
+81 error   syscall: 'mkdir',
+81 error   path: '/usr/local/lib/node_modules/ionic',
+81 error   fstream_type: 'Directory',
+81 error   fstream_path: '/usr/local/lib/node_modules/ionic',
+81 error   fstream_class: 'DirWriter',
+81 error   fstream_stack:
+81 error    [ '/usr/local/lib/node_modules/npm/node_modules/fstream/lib/dir-writer.js:35:25',
+81 error      '/usr/local/lib/node_modules/npm/node_modules/mkdirp/index.js:47:53',
+81 error      'FSReqWrap.oncomplete (fs.js:82:15)' ] }
+82 error Please try running this command again as root/Administrator.
+83 verbose exit [ -13, true ]
+84 verbose unbuild lib/node_modules/ionic
+85 silly gentlyRm /usr/local/lib/node_modules/ionic is being purged from base /usr/local
+86 verbose gentlyRm don't care about contents; nuking /usr/local/lib/node_modules/ionic

@@ -47,7 +47,7 @@ var app = {
         alert("Failed"+e);
         }
         
-        WifiWizard.getCurrentSSID(ssidHandler, fail);
+        cordova.exec(ssidHandler, fail, 'WifiWizard', 'getConnectedSSID', []);
   
   
   
