@@ -19,7 +19,7 @@ const char WiFiAPPSK[] = "sparkfun";
 const int LED_PIN = 5; // Thing's onboard, green LED
 const int ANALOG_PIN = A0; // The only analog pin on the Thing
 const int DIGITAL_PIN = 12; // Digital pin to be read
-
+int d;
 //WiFiServer server(80);
 
 
@@ -130,9 +130,15 @@ void loop()
   Serial.print(hic);
   Serial.print(" *C ");
   Serial.print(hif);
-  Serial.println(" *F");
+  Serial.print(" *F ");
 
-  
+
+  d = analogRead(A0);
+   d = d / 10;
+  Serial.print("Distance: ");
+  Serial.print(d);
+Serial.println(" mm ");
+  //  setupWiFi();
   delay(10000);
   //Serial.println("Client disonnected");
 
@@ -186,9 +192,15 @@ void setupWiFi()
   Serial.print(hif);
   Serial.println(" *F");
 
+  d = analogRead(A0);
+  d = d / 10;
+  Serial.print("Distance: ");
+  Serial.print(d);
+  
+  String thename = "WIIB";
   
   // here is the code.
-  String AP_NameString = macID+"|"+t+"c|"+h+"%|";
+  String AP_NameString = thename + "|" + macID+"|"+t+"c|"+h+"|"+d+"mm|";
   
   char AP_NameChar[AP_NameString.length() + 1];
   memset(AP_NameChar, AP_NameString.length() + 1, 0);
