@@ -1,89 +1,80 @@
-/*
- *  HTTP over TLS (HTTPS) example sketch
- *
- *  This example demonstrates how to use
- *  WiFiClientSecure class to access HTTPS API.
- *  We fetch and display the status of
- *  esp8266/Arduino project continuous integration
- *  build.
- *
- *  Created by Ivan Grokhotkov, 2015.
- *  This example is in public domain.
- */
-
 #include <ESP8266WiFi.h>
-#include <WiFiClientSecure.h>
 
-const char* ssid = "Mydd2016";
-const char* password = "mydd@2016";
+#define ESP8266_PLATFORM
+#include "M2XStreamClient.h"
 
-const char* host = "api.github.com";
-const int httpsPort = 443;
+char ssid[] = "Mydd2016"; //  your network SSID (name)
+char pass[] = "mydd@2016";    // your network password (use for WPA, or use as key for WEP)
+int keyIndex = 0;            // your network key Index number (needed only for WEP)
 
-// Use web browser to view and copy
-// SHA1 fingerprint of the certificate
-const char* fingerprint = "CF 05 98 89 CA FF 8E D8 5E 5C E0 C2 E4 F7 E6 C3 C7 50 DD 5C";
+int status = WL_IDLE_STATUS;
+
+char deviceId[] = "<device id>"; // Device you want to push to
+char streamName[] = "<stream name>"; // Stream you want to push to
+char m2xKey[] = "<M2X access key>"; // Your M2X access key
+
+const int temperaturePin = 0;
+WiFiClient client;
+M2XStreamClient m2xClient(&client, m2xKey);
 
 void setup() {
-  Serial.begin(115200);
-  Serial.println();
-  Serial.print("connecting to ");
-  Serial.println(ssid);
-  WiFi.begin(ssid, password);
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
-  }
-  Serial.println("");
-  Serial.println("WiFi connected");
-  Serial.println("IP address: ");
-  Serial.println(WiFi.localIP());
+  Serial.begin(9600);
 
-  // Use WiFiClientSecure class to create TLS connection
-  WiFiClientSecure client;
-  Serial.print("connecting to ");
-  Serial.println(host);
-  if (!client.connect(host, httpsPort)) {
-    Serial.println("connection failed");
-    return;
-  }
+  while (status != WL_CONNECTED) {
+    Serial.print("Attempting to connect to SSID: ");
+    Serial.println(ssid);
+    // Connect to WPA/WPA2 network. Change this line if using open or WEP network:
+    status = WiFi.begin(ssid, pass);
 
-  if (client.verify(fingerprint, host)) {
-    Serial.println("certificate matches");
-  } else {
-    Serial.println("certificate doesn't match");
+    // wait 10 seconds for connection:
+    delay(10000);
   }
-
-  String url = "/repos/esp8266/Arduino/commits/master/status";
-  Serial.print("requesting URL: ");
-  Serial.println(url);
-
-  client.print(String("GET ") + url + " HTTP/1.1\r\n" +
-               "Host: " + host + "\r\n" +
-               "User-Agent: BuildFailureDetectorESP8266\r\n" +
-               "Connection: close\r\n\r\n");
-
-  Serial.println("request sent");
-  while (client.connected()) {
-    String line = client.readStringUntil('\n');
-    if (line == "\r") {
-      Serial.println("headers received");
-      break;
-    }
-  }
-  String line = client.readStringUntil('\n');
-  if (line.startsWith("{\"state\":\"success\"")) {
-    Serial.println("esp8266/Arduino CI successfull!");
-  } else {
-    Serial.println("esp8266/Arduino CI has failed");
-  }
-  Serial.println("reply was:");
-  Serial.println("==========");
-  Serial.println(line);
-  Serial.println("==========");
-  Serial.println("closing connection");
+  Serial.println("Connected to wifi");
+  printWifiStatus();
 }
 
 void loop() {
+  float voltage, degreesC, degreesF;
+
+  voltage = getVoltage(temperaturePin);
+  degreesC = (voltage - 0.5) * 100.0;
+  degreesF = degreesC * (9.0/5.0) + 32.0;
+
+  Serial.print("voltage: ");
+  Serial.print(voltage);
+  Serial.print("  deg C: ");
+  Serial.print(degreesC);
+  Serial.print("  deg F: ");
+  Serial.println(degreesF);
+
+  int response = m2xClient.updateStreamValue(deviceId, streamName, degreesC);
+  Serial.print("M2x client response code: ");
+  Serial.println(response);
+
+  if (response == -1) while(1) ;
+
+  delay(5000);
 }
 
+
+void printWifiStatus() {
+  // print the SSID of the network you're attached to:
+  Serial.print("SSID: ");
+  Serial.println(WiFi.SSID());
+
+  // print your WiFi shield's IP address:
+  IPAddress ip = WiFi.localIP();
+  Serial.print("IP Address: ");
+  Serial.println(ip);
+
+  // print the received signal strength:
+  long rssi = WiFi.RSSI();
+  Serial.print("signal strength (RSSI):");
+  Serial.print(rssi);
+  Serial.println(" dBm");
+}
+
+float getVoltage(int pin)
+{
+  return (analogRead(pin) * 0.004882814);
+}

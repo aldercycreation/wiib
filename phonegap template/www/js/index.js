@@ -75,7 +75,28 @@ var app = {
 };
 
 
+        function ssidHandler(a)
+        {
+         
+	 
+		var obj = jQuery.parseJSON( a );
+		alert( obj[0] );
 
+
+        }
+        
+        function fail(e){
+        alert("Failed"+e);
+        }
+        
+        
+        //this is old scan result
+       // WifiWizard.listNetworks(ssidHandler, fail);
+        //get new result
+	function scanwiib(e){
+        WifiWizard.getScanResults(ssidHandler, fail);
+	}
+	
 function menu(option){
 
 	//Remove previous active class
