@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
     "cordova-plugin-battery-status": {
         "source": {
             "type": "registry",
@@ -151,6 +152,8 @@
         "is_top_level": true,
         "variables": {}
     },
+=======
+>>>>>>> origin/master
     "cordova-plugin-whitelist": {
         "source": {
             "type": "registry",
