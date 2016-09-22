@@ -63,7 +63,7 @@
   <gap:splash src="www/res/screen/windows-phone/screen-portrait.jpg" gap:platform="winphone"/>
   <access origin="*"/>
   
-  <plugin name="com.pylonproducts.wifiwizard" spec="0.1.0" source="pgb" />
+<gap:plugin name="wifiwizard" source="npm" version="0.2.9"/>
   
   <plugin name="cordova-plugin-whitelist" version="1"/>
   <allow-intent href="http://*/*"/>

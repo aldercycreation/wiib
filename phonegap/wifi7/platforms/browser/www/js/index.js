@@ -37,16 +37,22 @@ var app = {
         
         
         
-        function ssidHandler(s)
+        function ssidHandler(a)
         {
-        alert("Current SSID"+s);
+         alert(JSON.stringify(a));
         }
         
         function fail(e){
         alert("Failed"+e);
         }
         
-        WifiWizard.listNetworks(ssidHandler, fail);
+        
+        //this is old scan result
+       // WifiWizard.listNetworks(ssidHandler, fail);
+        
+        
+        //get new result
+        WifiWizard.getScanResults(ssidHandler, fail);
         
         alert("wifi7");
         
