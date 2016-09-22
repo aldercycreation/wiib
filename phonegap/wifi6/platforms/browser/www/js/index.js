@@ -35,13 +35,20 @@ var app = {
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
         
-         function ssidHandler(s)
+        
+        alert ("OK");
+        
+        function ssidHandler(s)
         {
         alert("Current SSID"+s);
         }
         function fail(e){
         alert("Failed"+e);
         }
+        
+        
+        alert ("OK2");
+        
         
          WifiWizard.getCurrentSSID(ssidHandler, fail);
     },
