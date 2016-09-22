@@ -167,9 +167,10 @@ opacity: 0.5;
 /*Box style*/
 .box{
 	padding: 20px 20px;
-	color: rgb(107, 107, 107);
+	color: rgb(0, 0, 0);
 	margin: 20px 0px;
 	border-radius: 5px;
+	font-weight:bold;
 }
 
 .greyBackground{
@@ -204,7 +205,8 @@ p.date{
 	display: inline;
 	position: absolute;
 	right: 30px;
-	color: rgb(60, 171, 218);
+	color: rgb(0, 0, 0);
+	font-weight: bold;
 }
 
 .socialBody{

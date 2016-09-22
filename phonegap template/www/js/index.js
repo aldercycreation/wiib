@@ -74,6 +74,8 @@ var app = {
 
 };
 
+
+
 function menu(option){
 
 	//Remove previous active class
