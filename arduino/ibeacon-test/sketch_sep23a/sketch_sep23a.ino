@@ -1,5 +1,13 @@
 #include <ESP8266WiFi.h>
 
+#include "DHT.h"
+
+#define DHTPIN D2     // what digital pin we're connected to
+
+// Uncomment whatever type you're using!
+//#define DHTTYPE DHT11   // DHT 11
+#define DHTTYPE DHT11  
+  
 //////////////////////
 // WiFi Definitions //
 //////////////////////
@@ -12,18 +20,26 @@ const int LED_PIN = 5; // Thing's onboard, green LED
 const int ANALOG_PIN = A0; // The only analog pin on the Thing
 const int DIGITAL_PIN = 12; // Digital pin to be read
 
-WiFiServer server(80);
+//WiFiServer server(80);
+
+
+DHT dht(DHTPIN, DHTTYPE);
 
 void setup() 
 {
+   Serial.begin(9600);
+   dht.begin();
   initHardware();
   setupWiFi();
-  server.begin();
-  Serial.begin(9600);
+ // server.begin();
+ 
+
+   
 }
 
 void loop() 
 {
+  /*
   // Check if a client has connected
   WiFiClient client = server.available();
   if (!client) {
@@ -78,8 +94,47 @@ void loop()
 
   // Send the response to the client
   client.print(s);
-  delay(1);
-  Serial.println("Client disonnected");
+  */
+  
+// get the data (SENSOR)
+
+  // Reading temperature or humidity takes about 250 milliseconds!
+  // Sensor readings may also be up to 2 seconds 'old' (its a very slow sensor)
+  float h = dht.readHumidity();
+  // Read temperature as Celsius (the default)
+  float t = dht.readTemperature();
+  // Read temperature as Fahrenheit (isFahrenheit = true)
+  float f = dht.readTemperature(true);
+
+
+  // Check if any reads failed and exit early (to try again).
+  if (isnan(h) || isnan(t) || isnan(f)) {
+    Serial.println("Failed to read from DHT sensor!");
+    return;
+  }
+
+  // Compute heat index in Fahrenheit (the default)
+  float hif = dht.computeHeatIndex(f, h);
+  // Compute heat index in Celsius (isFahreheit = false)
+  float hic = dht.computeHeatIndex(t, h, false);
+
+  Serial.print("Humidity: ");
+  Serial.print(h);
+  Serial.print(" %\t");
+  Serial.print("Temperature: ");
+  Serial.print(t);
+  Serial.print(" *C ");
+  Serial.print(f);
+  Serial.print(" *F\t");
+  Serial.print("Heat index: ");
+  Serial.print(hic);
+  Serial.print(" *C ");
+  Serial.print(hif);
+  Serial.println(" *F");
+
+  
+  delay(10000);
+  //Serial.println("Client disonnected");
 
   // The client will actually be disconnected 
   // when the function returns and 'client' object is detroyed
@@ -98,8 +153,42 @@ void setupWiFi()
   macID.toUpperCase();
 
 
+ // Reading temperature or humidity takes about 250 milliseconds!
+  // Sensor readings may also be up to 2 seconds 'old' (its a very slow sensor)
+  float h = dht.readHumidity();
+  // Read temperature as Celsius (the default)
+  float t = dht.readTemperature();
+  // Read temperature as Fahrenheit (isFahrenheit = true)
+  float f = dht.readTemperature(true);
+
+  // Check if any reads failed and exit early (to try again).
+  if (isnan(h) || isnan(t) || isnan(f)) {
+    Serial.println("Failed to read from DHT sensor!");
+    return;
+  }
+
+  // Compute heat index in Fahrenheit (the default)
+  float hif = dht.computeHeatIndex(f, h);
+  // Compute heat index in Celsius (isFahreheit = false)
+  float hic = dht.computeHeatIndex(t, h, false);
+
+  Serial.print("Humidity: ");
+  Serial.print(h);
+  Serial.print(" %\t");
+  Serial.print("Temperature: ");
+  Serial.print(t);
+  Serial.print(" *C ");
+  Serial.print(f);
+  Serial.print(" *F\t");
+  Serial.print("Heat index: ");
+  Serial.print(hic);
+  Serial.print(" *C ");
+  Serial.print(hif);
+  Serial.println(" *F");
+
   
-  String AP_NameString = macID+"|DATA|";
+  // here is the code.
+  String AP_NameString = macID+"|"+t+"c|"+h+"%|";
   
   char AP_NameChar[AP_NameString.length() + 1];
   memset(AP_NameChar, AP_NameString.length() + 1, 0);
@@ -112,10 +201,10 @@ void setupWiFi()
 
 void initHardware()
 {
-  Serial.begin(115200);
-  pinMode(DIGITAL_PIN, INPUT_PULLUP);
-  pinMode(LED_PIN, OUTPUT);
-  digitalWrite(LED_PIN, LOW);
+ // Serial.begin(115200);
+  //pinMode(DIGITAL_PIN, INPUT_PULLUP);
+ // pinMode(LED_PIN, OUTPUT);
+  //digitalWrite(LED_PIN, LOW);
   // Don't need to set ANALOG_PIN as input, 
   // that's all it can be.
 }
