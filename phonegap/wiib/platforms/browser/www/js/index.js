@@ -74,45 +74,6 @@ var app = {
 
 };
 
-<<<<<<< HEAD
-=======
-
-
-function ssidHandler(s){
-    alert("Current SSID"+s);
-}
-function fail(e){
-    alert("Failed"+e);
-}
-function getCurrentSSID(){
-
-    WifiWizard.getCurrentSSID(ssidHandler, fail);
-}
-function listHandler(a){
-    alert(a);
-}
-
-
-function getWifiList(){
-
-   WifiWizard.listNetworks(listHandler, fail);
-
-}
-
-function listHandler2(a){
-    alert(JSON.stringify(a));
-}
-
-function fail(a){
-    alert(JSON.stringify(a));
-}
-
-function getScanResult(){
-alert("ok");
-    WifiWizard.getScanResults(listHandler2, fail);
- }
- 
->>>>>>> origin/master
 function menu(option){
 
 	//Remove previous active class

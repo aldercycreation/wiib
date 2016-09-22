@@ -195,8 +195,9 @@ hr {
 p.titleBox{
 	text-transform: uppercase;
 	font-weight: bold;
-	color: rgb(60, 171, 218);
+	color: #616161;
 	display: inline;
+	font-size: 24pt;
 }
 
 p.date{

@@ -30,7 +30,12 @@ void setup()
    Serial.begin(9600);
    dht.begin();
   initHardware();
+ 
+  //beaconmode
   setupWiFi();
+
+  //direct mode
+  
  // server.begin();
  
 
@@ -138,14 +143,17 @@ void loop()
   Serial.print("Distance: ");
   Serial.print(d);
 Serial.println(" mm ");
-  //  setupWiFi();
-  delay(10000);
+
+
+  
+  delay(50000);
   //Serial.println("Client disonnected");
 
   // The client will actually be disconnected 
   // when the function returns and 'client' object is detroyed
 }
 
+//beacon mode
 void setupWiFi()
 {
   WiFi.mode(WIFI_AP);
@@ -200,7 +208,7 @@ void setupWiFi()
   String thename = "WIIB";
   
   // here is the code.
-  String AP_NameString = thename + "|" + macID+"|"+t+"c|"+h+"|"+d+"mm|";
+  String AP_NameString = macID + "|" + thename +"|"+t+"c|"+h+"|"+d+"mm|";
   
   char AP_NameChar[AP_NameString.length() + 1];
   memset(AP_NameChar, AP_NameString.length() + 1, 0);

@@ -1,0 +1,352 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1265\cocoasubrtf210
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+{\field{\*\fldinst{HYPERLINK "http://stackoverflow.com/questions/32629233/error-while-getting-wifi-network-information-ssid-in-phonegap-app-using-com-py"}}{\fldrslt 
+\f0\fs24 \cf0 http://stackoverflow.com/questions/32629233/error-while-getting-wifi-network-information-ssid-in-phonegap-app-using-com-py}}
+\f0\fs24 \
+\
+{\field{\*\fldinst{HYPERLINK "https://coolestguidesontheplanet.com/installing-node-js-on-osx-10-10-yosemite/"}}{\fldrslt https://coolestguidesontheplanet.com/installing-node-js-on-osx-10-10-yosemite/}}\
+\
+\
+https://learn.sparkfun.com/tutorials/esp8266-thing-hookup-guide/example-sketch-ap-web-server\
+\
+com.pylonproducts.wifiwizard\
+\
+\
+\
+\
+\
+#include <ESP8266WiFi.h>\
+ \
+const char* ssid = "Magesh";\
+const char* password = "jayakumar";\
+ \
+int ledPin = 13; // GPIO13\
+WiFiServer server(80);\
+ \
+void setup() \{\
+  Serial.begin(115200);\
+  delay(10);\
+ \
+  pinMode(ledPin, OUTPUT);\
+  digitalWrite(ledPin, LOW);\
+ \
+  // Connect to WiFi network\
+  Serial.println();\
+  Serial.println();\
+  Serial.print("Connecting to ");\
+  Serial.println(ssid);\
+ \
+  WiFi.begin(ssid, password);\
+ \
+  while (WiFi.status() != WL_CONNECTED) \{\
+    delay(500);\
+    Serial.print(".");\
+  \}\
+  Serial.println("");\
+  Serial.println("WiFi connected");\
+ \
+  // Start the server\
+  server.begin();\
+  Serial.println("Server started");\
+ \
+  // Print the IP address\
+  Serial.print("Use this URL to connect: ");\
+  Serial.print("http://");\
+  Serial.print(WiFi.localIP());\
+  Serial.println("/");\
+ \
+\}\
+ \
+void loop() \{\
+  // Check if a client has connected\
+  WiFiClient client = server.available();\
+  if (!client) \{\
+    return;\
+  \}\
+ \
+  // Wait until the client sends some data\
+  Serial.println("new client");\
+  while(!client.available())\{\
+    delay(1);\
+  \}\
+ \
+  // Read the first line of the request\
+  String request = client.readStringUntil('\\r');\
+  Serial.println(request);\
+  client.flush();\
+ \
+  // Match the request\
+ \
+  int value = LOW;\
+  if (request.indexOf("/LED=ON") != -1)  \{\
+    digitalWrite(ledPin, HIGH);\
+    value = HIGH;\
+  \}\
+  if (request.indexOf("/LED=OFF") != -1)  \{\
+    digitalWrite(ledPin, LOW);\
+    value = LOW;\
+  \}\
+ \
+// Set ledPin according to the request\
+//digitalWrite(ledPin, value);\
+ \
+  // Return the response\
+  client.println("HTTP/1.1 200 OK");\
+  client.println("Content-Type: text/html");\
+  client.println(""); //  do not forget this one\
+  client.println("<!DOCTYPE HTML>");\
+  client.println("<html>");\
+ \
+  client.print("Led pin is now: ");\
+ \
+  if(value == HIGH) \{\
+    client.print("On");\
+  \} else \{\
+    client.print("Off");\
+  \}\
+  client.println("<br><br>");\
+  client.println("<a href=\\"/LED=ON\\"\\"><button>Turn On </button></a>");\
+  client.println("<a href=\\"/LED=OFF\\"\\"><button>Turn Off </button></a><br />");  \
+  client.println("</html>");\
+ \
+  delay(1);\
+  Serial.println("Client disonnected");\
+  Serial.println("");\
+ \
+\}\
+ \
+\
+\
+\
+\
+#include <ESP8266WiFi.h>\
+\
+#include "DHT.h"\
+\
+#define DHTPIN D2     // what digital pin we're connected to\
+\
+// Uncomment whatever type you're using!\
+//#define DHTTYPE DHT11   // DHT 11\
+#define DHTTYPE DHT11  \
+  \
+//////////////////////\
+// WiFi Definitions //\
+//////////////////////\
+const char WiFiAPPSK[] = "sparkfun";\
+\
+/////////////////////\
+// Pin Definitions //\
+/////////////////////\
+const int LED_PIN = 5; // Thing's onboard, green LED\
+const int ANALOG_PIN = A0; // The only analog pin on the Thing\
+const int DIGITAL_PIN = 12; // Digital pin to be read\
+int d;\
+//WiFiServer server(80);\
+\
+\
+DHT dht(DHTPIN, DHTTYPE);\
+\
+void setup() \
+\{\
+   Serial.begin(9600);\
+   dht.begin();\
+  initHardware();\
+  setupWiFi();\
+ // server.begin();\
+ \
+\
+   \
+\}\
+\
+void loop() \
+\{\
+  \
+  /*\
+  // Check if a client has connected\
+  WiFiClient client = server.available();\
+  if (!client) \{\
+    return;\
+  \}\
+\
+  // Read the first line of the request\
+  String req = client.readStringUntil('\\r');\
+  Serial.println(req);\
+  client.flush();\
+  \
+  // Match the request\
+  int val = -1; // We'll use 'val' to keep track of both the\
+                // request type (read/set) and value if set.\
+  if (req.indexOf("/led/0") != -1)\
+    val = 0; // Will write LED low\
+  else if (req.indexOf("/led/1") != -1)\
+    val = 1; // Will write LED high\
+  else if (req.indexOf("/read") != -1)\
+    val = -2; // Will print pin reads\
+  // Otherwise request will be invalid. We'll say as much in HTML\
+\
+  // Set GPIO5 according to the request\
+  if (val >= 0)\
+    digitalWrite(LED_PIN, val);\
+  \
+  client.flush();\
+\
+  // Prepare the response. Start with the common header:\
+  String s = "HTTP/1.1 200 OK\\r\\n";\
+  s += "Content-Type: text/html\\r\\n\\r\\n";\
+  s += "<!DOCTYPE HTML>\\r\\n<html>\\r\\n";\
+  // If we're setting the LED, print out a message saying we did\
+  if (val >= 0)\
+  \{\
+    s += "LED is now ";\
+    s += (val)?"high":"low";\
+  \}\
+  else if (val == -2)\
+  \{ // If we're reading pins, print out those values:\
+    s += "Analog Pin = ";\
+    s += String(analogRead(ANALOG_PIN));\
+    s += "<br>"; // Go to the next line.\
+    s += "Digital Pin 12 = ";\
+    s += String(digitalRead(DIGITAL_PIN));\
+  \}\
+  else\
+  \{\
+    s += "Invalid Request.<br> Try /led/1, /led/0, or /read.";\
+  \}\
+  s += "</html>\\n";\
+\
+  // Send the response to the client\
+  client.print(s);\
+  \
+  \
+// get the data (SENSOR)\
+\
+  // Reading temperature or humidity takes about 250 milliseconds!\
+  // Sensor readings may also be up to 2 seconds 'old' (its a very slow sensor)\
+  float h = dht.readHumidity();\
+  // Read temperature as Celsius (the default)\
+  float t = dht.readTemperature();\
+  // Read temperature as Fahrenheit (isFahrenheit = true)\
+  float f = dht.readTemperature(true);\
+\
+\
+  // Check if any reads failed and exit early (to try again).\
+  if (isnan(h) || isnan(t) || isnan(f)) \{\
+    Serial.println("Failed to read from DHT sensor!");\
+    return;\
+  \}\
+\
+  // Compute heat index in Fahrenheit (the default)\
+  float hif = dht.computeHeatIndex(f, h);\
+  // Compute heat index in Celsius (isFahreheit = false)\
+  float hic = dht.computeHeatIndex(t, h, false);\
+\
+  Serial.print("Humidity: ");\
+  Serial.print(h);\
+  Serial.print(" %\\t");\
+  Serial.print("Temperature: ");\
+  Serial.print(t);\
+  Serial.print(" *C ");\
+  Serial.print(f);\
+  Serial.print(" *F\\t");\
+  Serial.print("Heat index: ");\
+  Serial.print(hic);\
+  Serial.print(" *C ");\
+  Serial.print(hif);\
+  Serial.print(" *F ");\
+\
+\
+  d = analogRead(A0);\
+   d = d / 10;\
+  Serial.print("Distance: ");\
+  Serial.print(d);\
+Serial.println(" mm ");\
+\
+\
+  \
+  delay(50000);\
+// UPDATE EVERY ??\
+     //setupWiFi();\
+  //Serial.println("Client disonnected");\
+\
+  // The client will actually be disconnected \
+  // when the function returns and 'client' object is detroyed\
+  */\
+\}\
+\
+void setupWiFi()\
+\{\
+  WiFi.mode(WIFI_AP);\
+  \
+  // Do a little work to get a unique-ish name. Append the\
+  // last two bytes of the MAC (HEX'd) to "Thing-":\
+  uint8_t mac[WL_MAC_ADDR_LENGTH];\
+  WiFi.softAPmacAddress(mac);\
+  String macID = String(mac[WL_MAC_ADDR_LENGTH - 2], HEX) +\
+                 String(mac[WL_MAC_ADDR_LENGTH - 1], HEX);\
+  macID.toUpperCase();\
+\
+/*\
+ // Reading temperature or humidity takes about 250 milliseconds!\
+  // Sensor readings may also be up to 2 seconds 'old' (its a very slow sensor)\
+  float h = dht.readHumidity();\
+  // Read temperature as Celsius (the default)\
+  float t = dht.readTemperature();\
+  // Read temperature as Fahrenheit (isFahrenheit = true)\
+  float f = dht.readTemperature(true);\
+\
+  // Check if any reads failed and exit early (to try again).\
+  if (isnan(h) || isnan(t) || isnan(f)) \{\
+    Serial.println("Failed to read from DHT sensor!");\
+    return;\
+  \}\
+\
+  // Compute heat index in Fahrenheit (the default)\
+  float hif = dht.computeHeatIndex(f, h);\
+  // Compute heat index in Celsius (isFahreheit = false)\
+  float hic = dht.computeHeatIndex(t, h, false);\
+\
+  Serial.print("Humidity: ");\
+  Serial.print(h);\
+  Serial.print(" %\\t");\
+  Serial.print("Temperature: ");\
+  Serial.print(t);\
+  Serial.print(" *C ");\
+  Serial.print(f);\
+  Serial.print(" *F\\t");\
+  Serial.print("Heat index: ");\
+  Serial.print(hic);\
+  Serial.print(" *C ");\
+  Serial.print(hif);\
+  Serial.println(" *F");\
+\
+  d = analogRead(A0);\
+  d = d / 10;\
+  Serial.print("Distance: ");\
+  Serial.print(d);\
+  */\
+ // String thename = "WIIB";\
+  Serial.print("Connect: ");\
+  // here is the code.\
+  String AP_NameString = macID+"WIIB|24c|48|90mm";\
+  \
+  char AP_NameChar[AP_NameString.length() + 1];\
+  memset(AP_NameChar, AP_NameString.length() + 1, 0);\
+  \
+  for (int i=0; i<AP_NameString.length(); i++)\
+    AP_NameChar[i] = AP_NameString.charAt(i);\
+  \
+  WiFi.softAP(AP_NameChar, WiFiAPPSK);\
+\}\
+\
+void initHardware()\
+\{\
+ // Serial.begin(115200);\
+  //pinMode(DIGITAL_PIN, INPUT_PULLUP);\
+ // pinMode(LED_PIN, OUTPUT);\
+  //digitalWrite(LED_PIN, LOW);\
+  // Don't need to set ANALOG_PIN as input, \
+  // that's all it can be.\
+\}}
