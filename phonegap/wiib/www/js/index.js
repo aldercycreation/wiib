@@ -61,6 +61,8 @@ var app = {
         document.addEventListener('deviceready', this.onDeviceReady, false);
     },
     onDeviceReady: function() {
+	updatewiib();
+	// setTimeout(updatewiib(), 20000);
     	//Only for iOS 7 in the Phonegap Project
         if (parseFloat(window.device.version) >= 7.0) 
 		{
@@ -73,6 +75,34 @@ var app = {
     }
 
 };
+
+		//alert("OK");
+		
+		
+		function updatewiib(args) {
+			//code
+		
+$.getJSON( "http://api-m2x.att.com/v2/devices/767f9ecf3fc3c5b640437eba4e77ee53/streams/", function( data ) {
+
+
+$("#temp").html(data.streams[0].value);
+$("#humid").html(data.streams[1].value);
+$("#distance").html(data.streams[2].value);
+
+$("#date").html(data.streams[2].latest_value_at);
+
+ //setTimeout(updatewiib(), 20000);
+
+
+ 
+});
+
+
+ $(this).delay(5000).queue(function() { updatewiib(); } );
+ 
+		}
+		
+		
 
 function menu(option){
 

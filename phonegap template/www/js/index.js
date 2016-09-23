@@ -34,6 +34,10 @@ var app = {
 		xhReq.send(null);
 		document.getElementById("sectionContent").innerHTML=xhReq.responseText;
 
+		
+		alert("OK");
+
+
 		//Add default active class to the menu
 		$( "ul.ulMenu li:nth-child(1)" ).addClass( "active" );
 
@@ -62,19 +66,20 @@ var app = {
     },
     onDeviceReady: function() {
     	//Only for iOS 7 in the Phonegap Project
-        if (parseFloat(window.device.version) >= 7.0) 
-		{
+        //if (parseFloat(window.device.version) >= 7.0) 
+		//{
 			$('div#header').css('padding-top','20px');
 			$('div#header .btn').css('margin-top','20px');
 			$('div#header .location').css('margin-top','20px');
 			$('div#sectionContent').css('margin-top','30px');
 			$('div#wrapper').css('top','70px');
-		}
+			
+		//}
     }
 
 };
 
-
+/*
         function ssidHandler(a)
         {
          
@@ -96,6 +101,13 @@ var app = {
 	function scanwiib(e){
         WifiWizard.getScanResults(ssidHandler, fail);
 	}
+	*/
+
+//function m2x(){
+
+
+//}
+
 	
 function menu(option){
 
@@ -129,6 +141,7 @@ function menu(option){
 			play: { auto: true}
     	});
 		myScroll.enable();
+		
 	}
 	else if(option == 2){
 		$btnLocation.hide();
