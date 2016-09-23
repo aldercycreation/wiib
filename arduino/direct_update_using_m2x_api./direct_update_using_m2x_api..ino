@@ -2,6 +2,11 @@
 
 #define ESP8266_PLATFORM
 
+#include "DHT.h"
+
+#define DHTPIN D2  
+#define DHTTYPE DHT11  
+
 #include "M2XStreamClient.h"
 
 char ssid[] = "Mydd2016"; //  your network SSID (name)
@@ -22,7 +27,7 @@ int counts[] = { 1, 1, 1};
 const char *ats[] = { "2013-09-09T19:15:00Z",
                       "2013-09-09T19:15:10Z",
                       "2013-09-09T19:15:20Z"};
-double values[] = { 10.0, 20.0, 7.5 };
+
 
 char timestamp[25];
 
@@ -30,9 +35,11 @@ WiFiClient client;
 M2XStreamClient m2xClient(&client, m2xKey);
 TimeService timeService(&m2xClient);
 
+DHT dht(DHTPIN, DHTTYPE);
+
 void setup() {
   Serial.begin(9600);
-
+dht.begin();
   while (status != WL_CONNECTED) {
     Serial.print("Attempting to connect to SSID: ");
     Serial.println(ssid);
@@ -44,13 +51,21 @@ void setup() {
     while(1) {}
   }
     // wait 10 seconds for connection:
-    delay(10000);
+    delay(5000);
   }
   Serial.println("Connected to wifi");
   printWifiStatus();
 }
 
 void loop() {
+
+    float h = dht.readHumidity();
+  // Read temperature as Celsius (the default)
+  float t = dht.readTemperature();
+
+ int d = analogRead(A0);
+   d = d / 10;
+  double values[] = { t, h, d };
 
     int length = 25;
   timeService.getTimestamp(timestamp, &length);
