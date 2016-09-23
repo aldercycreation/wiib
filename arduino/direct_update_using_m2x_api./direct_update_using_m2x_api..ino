@@ -1,6 +1,7 @@
 #include <ESP8266WiFi.h>
 
 #define ESP8266_PLATFORM
+
 #include "M2XStreamClient.h"
 
 char ssid[] = "Mydd2016"; //  your network SSID (name)
@@ -10,12 +11,24 @@ int keyIndex = 0;            // your network key Index number (needed only for W
 int status = WL_IDLE_STATUS;
 
 char deviceId[] = "767f9ecf3fc3c5b640437eba4e77ee53"; // Device you want to push to
-char streamName[] = "temp"; // Stream you want to push to
+//char streamName[] = "temp"; // Stream you want to push to
 char m2xKey[] = "a15d80da3aa26ea62c45dcce09e0d2c9"; // Your M2X access key
+/*
+char deviceId[] = "<device id>"; // Device you want to push to
+char m2xKey[] = "<M2X access key>"; // Your M2X access key
+*/
+const char *streamNames[] = { "temp", "humid", "distance" };
+int counts[] = { 1, 1, 1};
+const char *ats[] = { "2013-09-09T19:15:00Z",
+                      "2013-09-09T19:15:10Z",
+                      "2013-09-09T19:15:20Z"};
+double values[] = { 10.0, 20.0, 7.5 };
 
-const int temperaturePin = 0;
+char timestamp[25];
+
 WiFiClient client;
 M2XStreamClient m2xClient(&client, m2xKey);
+TimeService timeService(&m2xClient);
 
 void setup() {
   Serial.begin(9600);
@@ -26,6 +39,10 @@ void setup() {
     // Connect to WPA/WPA2 network. Change this line if using open or WEP network:
     status = WiFi.begin(ssid, pass);
 
+  if (!m2x_status_is_success(timeService.init())) {
+    Serial.println("Cannot initialize time service!");
+    while(1) {}
+  }
     // wait 10 seconds for connection:
     delay(10000);
   }
@@ -34,21 +51,18 @@ void setup() {
 }
 
 void loop() {
-  float voltage, degreesC, degreesF;
 
-  voltage = getVoltage(temperaturePin);
-  degreesC = (voltage - 0.5) * 100.0;
-  degreesF = degreesC * (9.0/5.0) + 32.0;
+    int length = 25;
+  timeService.getTimestamp(timestamp, &length);
 
-  Serial.print("voltage: ");
-  Serial.print(voltage);
-  Serial.print("  deg C: ");
-  Serial.print(degreesC);
-  Serial.print("  deg F: ");
-  Serial.println(degreesF);
+char *timestamps[2];
+timestamps[0] = timestamp;
+timestamps[1] = timestamp;
+timestamps[2] = timestamp;
 
-  int response = m2xClient.updateStreamValue(deviceId, streamName, degreesC);
-  Serial.print("M2x client response code: ");
+  int response = m2xClient.postDeviceUpdates(deviceId, 3, streamNames,
+                                             counts, (const char **) timestamps, values);
+  Serial.print("M2X client response code: ");
   Serial.println(response);
 
   if (response == -1) while(1) ;
@@ -74,7 +88,3 @@ void printWifiStatus() {
   Serial.println(" dBm");
 }
 
-float getVoltage(int pin)
-{
-  return (analogRead(pin) * 0.004882814);
-}
