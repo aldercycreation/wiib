@@ -159,10 +159,42 @@ function menu(option){
 		myScroll.enable();
 	}
 	else if(option == 4){
-		setTitle('Gallery');
+		setTitle('WIIB Beacon');
 		myScroll.disable();
 		//Initialize PhotoSwipe plugin for gallery
-		var myPhotoSwipe = Code.PhotoSwipe.attach( window.document.querySelectorAll('#Gallery a'), { enableMouseWheel: false , enableKeyboard: false } );
+		//var myPhotoSwipe = Code.PhotoSwipe.attach( window.document.querySelectorAll('#Gallery a'), { enableMouseWheel: false , enableKeyboard: false } );
+	
+	
+	function ssidHandler(a)
+        {
+        // $("#wiibbeacon").html(JSON.stringify(a));
+	 var obj = jQuery.parseJSON( a );
+	 
+	 $.each(obj, function(i, item)
+		{
+			$("#wiibbeacon").append(JSON.stringify( obj[i] ) + "<br>");
+			
+		}
+		);
+	 
+	 
+	 
+	}
+	
+        function fail(e){
+        alert("Failed"+e);
+        }
+        
+        
+        //this is old scan result
+       // WifiWizard.listNetworks(ssidHandler, fail);
+        
+        
+        //get new result
+        WifiWizard.getScanResults(ssidHandler, fail);
+	
+	
+	
 	}
 	else if(option == 5){
 		setTitle('Contact');
