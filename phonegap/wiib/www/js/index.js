@@ -93,12 +93,23 @@ $("#date").html(data.streams[2].latest_value_at);
 
  //setTimeout(updatewiib(), 20000);
 
+ 
+ //to change color
+ if (data.streams[2].value < 50) {
+	$("#thecolor").html('[ AVAILABLE ]');
+	$("#thecolor").css("background-color","green");
+ }
+ else
+ {
+	$("#thecolor").html('[ LOW ]');
+	$("#thecolor").css("background-color","red");
+ }
 
  
 });
 
 
- $(this).delay(5000).queue(function() { updatewiib(); } );
+ $(this).delay(10000).queue(function() { updatewiib(); } );
  
 		}
 		
