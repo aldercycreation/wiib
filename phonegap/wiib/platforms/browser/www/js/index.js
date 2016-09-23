@@ -95,7 +95,7 @@ $("#date").html(data.streams[2].latest_value_at);
 
  
  //to change color
- if (data.streams[2].value < 50) {
+ if (data.streams[2].value < 60) {
 	$("#thecolor").html('[ AVAILABLE ]');
 	$("#thecolor").css("background-color","green");
  }
@@ -109,7 +109,7 @@ $("#date").html(data.streams[2].latest_value_at);
 });
 
 
- $(this).delay(10000).queue(function() { updatewiib(); } );
+ $(this).delay(5000).queue(function() { updatewiib(); } );
  
 		}
 		

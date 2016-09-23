@@ -77,6 +77,12 @@ timestamps[0] = timestamp;
 timestamps[1] = timestamp;
 timestamps[2] = timestamp;
 
+ Serial.println(timestamp);
+  Serial.println(t);
+   Serial.println(h);
+    Serial.println(d);
+ 
+
   int response = m2xClient.postDeviceUpdates(deviceId, 3, streamNames,
                                              counts, (const char **) timestamps, values);
   Serial.print("M2X client response code: ");
