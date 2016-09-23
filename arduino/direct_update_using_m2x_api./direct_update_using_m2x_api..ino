@@ -46,7 +46,7 @@ dht.begin();
     // Connect to WPA/WPA2 network. Change this line if using open or WEP network:
     status = WiFi.begin(ssid, pass);
 
- delay(10000);
+ delay(30000);
  
   if (!m2x_status_is_success(timeService.init())) {
     Serial.println("Cannot initialize time service!");
