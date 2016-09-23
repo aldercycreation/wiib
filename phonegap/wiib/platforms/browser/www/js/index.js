@@ -79,7 +79,7 @@ var app = {
 		//alert("OK");
 		
 		
-		function updatewiib(args) {
+		function updatewiib() {
 			//code
 		
 $.getJSON( "http://api-m2x.att.com/v2/devices/767f9ecf3fc3c5b640437eba4e77ee53/streams/", function( data ) {
@@ -101,7 +101,7 @@ $("#date").html(data.streams[2].latest_value_at);
  }
  else
  {
-	$("#thecolor").html('[ LOW ]');
+	$("#thecolor").html('[ EMPTY ]');
 	$("#thecolor").css("background-color","red");
  }
 
@@ -150,12 +150,12 @@ function menu(option){
 	}
 	else if(option == 2){
 		$btnLocation.hide();
-		setTitle('About Us');
+		setTitle('Connect New');
 		myScroll.enable();
 	}
 	else if(option == 3){
 		$btnLocation.hide();
-		setTitle('Blog');
+		setTitle('Details');
 		myScroll.enable();
 	}
 	else if(option == 4){
